@@ -21,7 +21,8 @@ class StudentViewModel : ViewModel() {
         val studentMap = hashMapOf(
             "id" to student.id,
             "name" to student.name,
-            "program" to student.program
+            "program" to student.program,
+            "phones" to student.phones
         )
         db.collection("students")
             .add(studentMap)
@@ -43,7 +44,8 @@ class StudentViewModel : ViewModel() {
                     val id = document.getString("id") ?: ""
                     val name = document.getString("name") ?: ""
                     val program = document.getString("program") ?: ""
-                    list.add(Student(id, name, program))
+                    val phones = document.get("phones") as? List<String> ?: emptyList()
+                    list.add(Student(id, name, program, phones))
                 }
                 students = list
             }
@@ -52,4 +54,5 @@ class StudentViewModel : ViewModel() {
             }
     }
 }
+
 
